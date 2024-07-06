@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior School Image Gallery</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+	/*width: 100vw;
+    height: 100vh;
+	background-image: linear-gradient(360deg, rgba(211,204,227,0.6), rgba(233,228,240,0.7)),url('school2.jpg');
+	background-size: cover;
+	background-position: center center;*/
+	background-color:#355E3B;
+	margin-top: 40px; 
+  }
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .gallery-item {
+    width: 225px;
+    margin: 10px;
+    text-align: center;
+  }
+  .gallery-img {
+    width: 225px;
+    height: 225px;
+    object-fit: cover;
+	margin: 5px;
+    cursor: pointer;
+	border: 2px solid yellow;
+	border-radius: 10px;
+  }
+  .gallery-img img{
+    max-width: 100%;
+	max-height: 100%;
+  }
+  .gallery-heading {
+    font-weight: bold;
+	color:#355E3B;
+	font-size: 1.2em;
+	background-color:yellow;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #355E3B;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+	border-radius: 10px;
+    text-align: center;
+  }
+  .modal-heading {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+	color: yellow;
+  }
+  .modal-paragraph {
+    font-size: 1em;
+    margin-bottom: 10px;
+	color: white;
+	inline-size: 400px;
+    overflow-wrap: break-word;
+	text-align: justify;
+	font-weight: bold;
+  }
+  .modal-paragraph .key {
+  background-color: yellow; /* Highlight color */
+  color: black; /* Text color for the highlighted keyword */
+  font-weight: bold; /* Optionally, make the highlighted keyword bold */
+}
+  .modal-sub-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .modal-sub-picture {
+    margin: 5px;
+  }
+  .modal-sub-picture img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+	border: 2px solid #FFEA00;
+	border-radius: 10px;
+  }
+  .button-container {
+    text-align: center;
+    margin: 10px;
+	position: fixed;
+	top:0;
+	width:100%;
+  }
+  
+  
+  
+   #allBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #allBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+
+   #competitionsBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #competitionsBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+
+   #sportsBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #sportsBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+
+   #campaignsBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #campaignsBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+   
+   #assemblyBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #assemblyBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+   
+   #educationBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #educationBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+   
+   
+   #eventsBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #eventsBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+
+   #sessionBtn {
+	background-color: yellow;
+    color: green;
+    border: 1px solid ;
+	padding: 5px 15px;
+	border-radius: 20px;
+	font-size: 17px;
+	transition-duration: 0.4s;
+   }
+   #sessionBtn:hover {
+    background-color: green; /* Green */
+    color: yellow;
+   }
+ 
+ .bg-img {
+  background-image: url("school2.jpeg");
+  min-height: 325px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.container {
+  position: absolute;
+  width: 100%;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #355E3B;
+}
+.topnav h2{
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 120%;
+    margin: 5px;
+    color: #FFEA00;
+    text-align: center;
+}
+
+   .header {
+    width: 100%;
+	height: 100%;
+    /*height: auto; /* Set the height of the header */
+    overflow: hidden;
+  }
+  
+  .header img {
+    width: 100%; /* Set the width of the image */
+    height: 100%px; /* Set the height of the image */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+  }
+</style>
+</head>
+<body>
+<div class="bg-img">
+  <div class="container">
+    <div class="topnav">
+      <h2>SENIOR SCHOOL GALLERY</h2>
+    </div>
+<div class="button-container">
+  <button id="allBtn">All</button>
+  <button id="eventsBtn">Events - Organized</button>
+  <button id="campaignsBtn">Campaigns</button>
+  <button id="educationBtn">Educational Trips</button>
+  <button id="competitionsBtn">Competitions</button>
+  <button id="sessionBtn">Session</button>
+  <button id="assemblyBtn">Assembly</button>
+</div>
+ </div>
+</div>
+
+<div class="gallery">
+  <div class="gallery-item all events">
+    <img class="gallery-img" src="CFEST.jpeg" alt="C Fest">
+    <div class="gallery-heading">C Fest</div>
+  </div>
+  <div class="gallery-item all session">
+    <img class="gallery-img" src="Career.jpeg" alt="Career Fair">
+    <div class="gallery-heading">Career Fair</div>
+  </div>
+  
+  <div class="gallery-item all assembly">
+    <img class="gallery-img" src="Dussehra.jpeg" alt="Dusshera Assembly">
+    <div class="gallery-heading">Dusshera Assembly</div>
+  </div>
+  <div class="gallery-item all assembly">
+    <img class="gallery-img" src="FareWell.jpeg" alt="Class 12 Farewell">
+    <div class="gallery-heading">Class 12 Farewell</div>
+  </div>
+  <div class="gallery-item all assembly">
+    <img class="gallery-img" src="Unity.jpeg" alt="Unity Day">
+    <div class="gallery-heading">Unity Day</div>
+  </div>
+  
+  
+  <div class="gallery-item all events">
+    <img class="gallery-img" src="sports.jpeg" alt="Sports Day">
+    <div class="gallery-heading">Sports Day</div>
+  </div>
+  <div class="gallery-item all competitions">
+    <img class="gallery-img" src="Exun.jpeg" alt="Exun">
+    <div class="gallery-heading">Exun</div>
+  </div>
+  <div class="gallery-item all competitions">
+    <img class="gallery-img" src="Debate.jpeg" alt="Debate">
+    <div class="gallery-heading">Debate</div>
+  </div>
+  
+  <div class="gallery-item all education">
+    <img class="gallery-img" src="NDMC.jpeg" alt="NDMC">
+    <div class="gallery-heading">NDMC</div>
+  </div>
+  <div class="gallery-item all education">
+    <img class="gallery-img" src="Science.jpeg" alt="Science">
+    <div class="gallery-heading">Science</div>
+  </div>
+  <div class="gallery-item all education">
+    <img class="gallery-img" src="Mother.jpeg" alt="Mother Dairy">
+    <div class="gallery-heading">Mother Dairy</div>
+  </div>
+  
+  <!--both should have the same value eg alt D 1, gallery Heading D 1-->
+  <div class="gallery-item all campaigns">
+    <img class="gallery-img" src="Trip.jpeg" alt="Shoghi Trip">
+    <div class="gallery-heading">Shoghi Trip</div>
+  </div>
+</div>
+<div class="modal" id="modal">
+  <div class="modal-content" id="modalContent">
+    <div class="modal-heading">Gallery Pictures</div>
+    <p class="modal-paragraph">Pictures related to the selected image.</p>
+    <div class="modal-sub-pictures">
+      <!-- Sub-pictures will be displayed here -->
+    </div>
+  </div>
+</div>
+<script>
+  const allBtn = document.getElementById('allBtn');
+  const quizBtn = document.getElementById('competitionsBtn');
+  const campaignsBtn = document.getElementById('campaignsBtn');
+  const educationBtn = document.getElementById('educationBtn');
+  const eventsBtn = document.getElementById('eventsBtn');
+  const assemblyBtn = document.getElementById('assemblyBtn');
+  const sessionBtn = document.getElementById('sessionBtn');
+  
+  const modal = document.getElementById('modal');
+  const modalContent = document.getElementById('modalContent');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  allBtn.addEventListener('click', () => filterImages('all'));
+  quizBtn.addEventListener('click', () => filterImages('competitions'));
+  campaignsBtn.addEventListener('click', () => filterImages('campaigns'));
+  educationBtn.addEventListener('click', () => filterImages('education'));
+  assemblyBtn.addEventListener('click', () => filterImages('assembly'));
+  eventsBtn.addEventListener('click', () => filterImages('events'));
+  sessionBtn.addEventListener('click', () => filterImages('session'));
+  
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const imageHeading = item.querySelector('.gallery-heading').innerText;
+      const subPictures = getSubPictures(imageHeading);
+	  const modalParagraphs = getModalParagraphs(imageHeading);
+      modalContent.innerHTML = '';
+	  
+      const modalHeading = document.createElement('div');
+      modalHeading.className = 'modal-heading';
+      modalHeading.textContent = `Gallery Pictures - ${imageHeading}`;
+      modalContent.appendChild(modalHeading);
+	  
+      const modalParagraph = document.createElement('p');
+      modalParagraph.className = 'modal-paragraph';
+	  
+      modalParagraph.textContent = modalParagraphs;
+      modalContent.appendChild(modalParagraph);
+	  modalParagraph.innerHTML = modalParagraphs;
+      const modalSubPictures = document.createElement('div');
+      modalSubPictures.className = 'modal-sub-pictures';
+      subPictures.forEach(subPicture => {
+        const subPictureDiv = document.createElement('div');
+        subPictureDiv.className = 'modal-sub-picture';
+        const subImg = document.createElement('img');
+        subImg.src = subPicture;
+        subPictureDiv.appendChild(subImg);
+        modalSubPictures.appendChild(subPictureDiv);
+      });
+      modalContent.appendChild(modalSubPictures);
+      modal.style.display = 'flex';
+    });
+  });
+
+  modal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  function filterImages(category) {
+    galleryItems.forEach(item => {
+      item.style.display = 'none';
+      if (category === 'all' || item.classList.contains(category)) {
+        item.style.display = 'block';
+      }
+    });
+  }
+
+  function getSubPictures(imageHeading) {
+    // Replace these paths with your actual sub-picture paths
+    const subPicturePaths = {
+      'C Fest': ['sub_CFEST_1.jpeg'],
+      'Career Fair': ['sub_Career_1.jpeg'],
+      'Dusshera Assembly': ['sub_Dussehra_1.jpeg'],
+      'Class 12 Farewell': ['sub_Farewell_1.jpeg'],
+	  'Unity Day': ['sub_Unity_1.jpeg'],
+	  'Sports Day':['sub_Sports_1.jpeg'],
+	  'Exun':['sub_Exun_1.jpeg'],
+	  'Debate':['sub_Debate_1.jpeg'],
+	  'NDMC':['sub_NDMC_1.jpeg'],
+	  'Science':['sub_Science_1.jpeg'],
+	  'Mother Dairy':['sub_Mother_1.jpeg'],
+	  'Shoghi Trip':['sub_Trip_1.jpeg'],
+    };
+    return subPicturePaths[imageHeading] || [];
+  }
+  // New function to get modal paragraphs
+  function getModalParagraphs(imageHeading) {
+    const modalParagraphs = {
+      'C Fest': '<span class="key">The COLUMBAN FEST CORE TEAM organized the Columban Fest 2023 and won  the 2nd Best Speaker in Concordium and Northend Winner</span>.',
+      'Career Fair': '<span class="key">International Centre for Advancement of Education Organized The Columban Career Fair 2023-24 on the 18th December 2023</span>. Various prominent universities were a part of the career fair, with an aim to guide and help Columbans better understand the University courses and admission process',
+      'Dusshera Assembly': 'Organised by class of <span class="key">12C</span>. The assembly emphasised on the <span class="key">good and evil aspects of personality keeping the theme of Dussehra in mind</span>.',
+	  'Class 12 Farewell': 'To give a well deserved <span class="key">Farewell to the Batch of 2024</span>, a fun filled assembly was conducted by class 11. <span class="key">28.11.2023</span>',
+      'Unity Day': 'It was celebrated on <span class="key">31st October 2023</span>. An assembly by the <span class="key">Cultural and Heritage Society showcased the religious diversity in India and focused on the need of the young generation to protect it.</span>',
+	  'Sports Day' : 'On <span class="key">November 3rd, 2023, the Annual Sports Day</span> was held. <span class="key">Mr. Akshay Mahara Booshanam was the chief guest</span>, a proud graduate from the Batch of 2018. He is <span class="key">ranked #1 in India for Karate</span>. The sporting spectacle sealed the <span class="key">importance of cultivating a disciplined mind in academics and sports</span>.',
+      'Exun' : 'On 4th and 5th November, the students participated in <span class="key">Exun</span>, the biggest tech fest in Delhi <span class="key">hosted by DPS RK Puram</span>. <span class="key">Gaming Quiz, Vansh Gupta & Yuvraj S Singh secured the 1st position</span>. The <span class="key">Open Tech Quiz the team secured the 2nd position</span>.',
+	  'Debate' : '<span class="key">National School level debate</span> hosted by <span class="key">St. Xavier"s School, Gurgaon</span> on 4th November, 2023. Uday Singh (11-A) and Ronel Jacob Mathew (11-C) participated. <span class="key">Uday Singh was declared the Best Speaker</span>. Columban team also brought home the <span class="key">Best Team Trophy.</span>',
+	  'NDMC' : 'Three students from our school recently participated in the <span class="key">NDMC Science Fair</span>, showcasing their scientific acumen and innovative projects. <span class="key">Yuvraj Verma, Mayur Raj, and Tanishq Virmani won the Best School Trophy.</span> ',
+	  'Science' : 'Class 12 Science students visited the <span class="key">National Science Centre on 4th November, 2023</span>. It helped in the <span class="key">perceiving of complex concepts</span> in science and <span class="key">explaining them through working models.</span>',
+	  'Mother Dairy' : 'On 14.12.2023 the Senior School students of <span class="key">Class 12 B visited the Mother Dairy Industrial Estate in Patparganj</span>. It was a very enriching experience as they got to <span class="key">know the way an industry functions</span> and the various information required to any doubts they had about the product.',
+	  'Shoghi Trip' : 'The <span class="key">trip to Shoghi March 1st to March 5th, 2024</span> was a good experience for the students because they were engaged in <span class="key">outdoor activities, tree plantation & cleanliness drive</span>. The <span class="key">immersion program</span> gave our students the opportunity to <span class="key">immerse themselves in a different culture.</span> ', 
+	};
+    return modalParagraphs[imageHeading] || '';
+  }
+</script>
+</body>
+</html>
